@@ -45,15 +45,34 @@ def get_student():
     first, last, github = hackbright.get_student_by_github(github)
 
     # make one more query for projects and grade for project
-    project_title, grade = hackbright.get_grades_by_github(github)
+    # project_title, grade = hackbright.get_grades_by_github(github)
+    
+    titles_and_grades = hackbright.get_grades_by_github(github)
+
+    
+
+    # project_title = 
 
     html = render_template("student_info.html",
                            first=first,
                            last=last,
-                           github=github)
+                           github=github,
+                           titles_and_grades=titles_and_grades)
 
     # return "{} is the GitHub account for {} {}".format(github, first, last)
     return html 
+
+@app.route("/project_info")
+def get_project_info():
+
+    title = request.args.get('title')
+    title, description, max_grade = hackbright.get_project_by_title(title)
+
+    return render_template("project_info.html", 
+                            title=title, 
+                            description=description, 
+                            max_grade=max_grade)
+
 
 if __name__ == "__main__":
     hackbright.connect_to_db(app)

@@ -8,5 +8,9 @@
 
   <p>GitHub Account: {{ github }}</p>
 
+  {% for row in titles_and_grades %}
+    <li>{{ row[0] }}: {{ row[1] }}</li>
+
+  {% endfor %}
 </body>
 </html>

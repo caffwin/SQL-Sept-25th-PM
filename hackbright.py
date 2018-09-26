@@ -151,6 +151,19 @@ def get_grades_by_title(title):
     return rows
 
 
+def get_name_and_grades(title):
+
+    QUERY = """
+        SELECT first_name, last_name, grade
+        FROM grades
+        JOIN students
+        ON students.github = grades.student_github
+        WHERE project_title = :title 
+    """
+
+    db_cursor = db.session.execute(QUERY, {'title': title})
+
+
 def handle_input():
     """Main loop.
 
